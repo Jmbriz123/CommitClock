@@ -1,0 +1,21 @@
+name: checks
+on: [push, pull_request]
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ['3.11', '3.12', '3.13']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python -m pip install '.[dev]'
+      - run: ruff check src tests
+      - run: ruff format --check src tests
+      - run: python -m pytest -q
+      - run: commitclock --help
+      - run: commitclock check-config
+      - name: Verify installed package outside the checkout
+        run: cd /tmp && python -I -m commitclock --version
