@@ -24,3 +24,7 @@ are authorized for this session. No remote push or real service submission plann
 - 0.2: bb4fe2c; milestone 0 merged locally as b467148.
 - 1.1: Python package, argparse entry point, dev dependencies and ignore rules added.
   Validation: CLI help and initial pytest smoke test. Next: validated configuration.
+- 1.1: f3b5169.
+- 1.2: validated configuration and check-config command added; 17 tests pass and
+  Ruff passes. Dependency installation succeeded in the isolated .venv after the
+  sandbox's network restriction required an approved download. Next: CI/install checks.
