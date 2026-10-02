@@ -45,3 +45,7 @@ are authorized for this session. No remote push or real service submission plann
   guards, attempt ownership and interrupted recovery added. Validation: 38 tests
   pass, including a real subprocess killed during a claim and recovery blocked by
   a live sender; Ruff passes. Next: redacted audit/status output.
+- 2.2: bd2c541; independent review found no state/locking correctness blockers.
+- 2.3: structured status/audit output and credential redaction added. Explicit
+  status recovery shares the submission lock. Validation: 41 tests pass, Ruff
+  passes. Review found malformed URL validation needs a focused fix before merge.

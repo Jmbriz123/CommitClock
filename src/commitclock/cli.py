@@ -1,11 +1,15 @@
 """Command-line interface; importing this module performs no I/O."""
 
 import argparse
+import json
+import sqlite3
 from collections.abc import Sequence
 from pathlib import Path
 
 from commitclock import __version__
+from commitclock.audit import audit_snapshot
 from commitclock.config import ConfigError, load_config
+from commitclock.state import StateError, StateStore
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -26,10 +30,16 @@ def main(argv: Sequence[str] | None = None) -> int:
     subparsers.add_parser(
         "check-config", help="Validate local configuration without service requests"
     )
+    status_parser = subparsers.add_parser("status", help="Show local action and attempt status")
+    status_parser.add_argument(
+        "--recover-interrupted",
+        action="store_true",
+        help="Mark abandoned attempts unknown under the submission lock",
+    )
     args = parser.parse_args(argv)
     if args.command:
         try:
-            load_config(
+            config = load_config(
                 args.config,
                 {
                     key: getattr(args, key)
@@ -43,8 +53,24 @@ def main(argv: Sequence[str] | None = None) -> int:
                     )
                 },
             )
-        except ConfigError as error:
+            if args.command == "status":
+                with StateStore(config.state_dir) as state:
+                    if args.recover_interrupted:
+                        with state.submission_lock():
+                            state.recover_interrupted()
+                    print(
+                        json.dumps(
+                            audit_snapshot(
+                                state, (config.gemini_api_key, config.mattermost_access_token)
+                            ),
+                            indent=2,
+                        )
+                    )
+                return 0
+        except (ConfigError, StateError) as error:
             parser.error(str(error))
+        except (OSError, sqlite3.Error):
+            parser.error("Cannot access local state; check its directory and permissions")
         print("Configuration is valid. Live integrations remain gated.")
         return 0
     parser.print_help()

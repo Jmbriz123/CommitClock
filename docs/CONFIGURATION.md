@@ -74,3 +74,10 @@ Confirmed, in-flight, and unknown actions cannot be claimed again. A definite
 failure can be retried; a missed action requires explicit manual opt-in. Recovery
 marks interrupted in-flight attempts unknown. An unknown outcome requires external
 reconciliation before any future resend functionality; no automatic retry exists.
+
+`commitclock status` prints structured action/attempt timestamps, payload types,
+and outcomes without credentials. `status --recover-interrupted` marks abandoned
+in-flight attempts unknown while holding the same process lock used by senders.
+It refuses recovery while another sender holds that lock. Audit output redacts
+configured credentials, secret-like assignments, common token shapes and private
+key blocks. Redaction is best-effort and does not replace careful path exclusions.
