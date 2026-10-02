@@ -40,3 +40,8 @@ are authorized for this session. No remote push or real service submission plann
 - 2.1: dated shifts, ordered actions, UTC identities, midnight anchoring and DST
   handling implemented. Validation: 17 shift tests plus 17 prior tests pass; Ruff
   passes. Next: action journal and duplicate guards.
+- 2.1: 0ecef06.
+- 2.2: private SQLite action/attempt journal, exclusive submission lock, duplicate
+  guards, attempt ownership and interrupted recovery added. Validation: 38 tests
+  pass, including a real subprocess killed during a claim and recovery blocked by
+  a live sender; Ruff passes. Next: redacted audit/status output.
