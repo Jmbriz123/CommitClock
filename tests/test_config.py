@@ -37,6 +37,9 @@ def test_precedence_and_secret_repr(tmp_path):
         {"templates": {"opening": "{tasks!r}"}},
         {"sensitive_paths": [1]},
         {"model": 12},
+        {"mattermost_url": "https://[invalid"},
+        {"mattermost_url": "https://example.com:abc"},
+        {"mattermost_url": "https://example.com?token=private"},
         {"mattermost_url": "https://user:password@example.com"},
     ],
 )

@@ -209,7 +209,19 @@ def load_config(
     if config.mattermost_url:
         from urllib.parse import urlsplit
 
-        url = urlsplit(config.mattermost_url)
-        if url.scheme != "https" or not url.hostname or url.username or url.password:
-            raise ConfigError("mattermost_url must be HTTPS without embedded credentials")
+        try:
+            url = urlsplit(config.mattermost_url)
+            port = url.port
+        except ValueError:
+            raise ConfigError("mattermost_url has an invalid hostname or port") from None
+        if (
+            url.scheme != "https"
+            or not url.hostname
+            or url.username
+            or url.password
+            or url.query
+            or url.fragment
+            or port == 0
+        ):
+            raise ConfigError("mattermost_url must be HTTPS without credentials, query or fragment")
     return config

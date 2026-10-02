@@ -2,7 +2,7 @@
 
 ## Current status
 
-Milestone 0 complete. Next: merge docs/project-specs locally, then milestone 1.
+Milestones 0–2 complete. Next: merge feat/shift-state and begin milestone 3.
 The user requested implementation of sequential branches and merges; local merges
 are authorized for this session. No remote push or real service submission planned.
 
@@ -33,3 +33,24 @@ are authorized for this session. No remote push or real service submission plann
   editable install, wheel build and fresh-environment wheel installation passed
   locally on Python 3.12. CI execution on other versions awaits a remote run.
   Milestone 1 complete; next: shift model and state persistence.
+
+## Milestone 2
+
+- 1.3: b028590; milestone 1 merged before this branch.
+- 2.1: dated shifts, ordered actions, UTC identities, midnight anchoring and DST
+  handling implemented. Validation: 17 shift tests plus 17 prior tests pass; Ruff
+  passes. Next: action journal and duplicate guards.
+- 2.1: 0ecef06.
+- 2.2: private SQLite action/attempt journal, exclusive submission lock, duplicate
+  guards, attempt ownership and interrupted recovery added. Validation: 38 tests
+  pass, including a real subprocess killed during a claim and recovery blocked by
+  a live sender; Ruff passes. Next: redacted audit/status output.
+- 2.2: bd2c541; independent review found no state/locking correctness blockers.
+- 2.3: structured status/audit output and credential redaction added. Explicit
+  status recovery shares the submission lock. Validation: 41 tests pass, Ruff
+  passes. Review found malformed URL validation needs a focused fix before merge.
+
+- 2.3: 57221fd.
+- Focused fix: malformed Mattermost hostnames/ports now produce ConfigError; URL
+  queries/fragments are rejected to avoid credentials in action identity. Validation:
+  44 tests and Ruff pass. Milestone 2 complete.
