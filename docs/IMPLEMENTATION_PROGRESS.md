@@ -2,7 +2,7 @@
 
 ## Current status
 
-Milestones 0–1 complete and merged locally. Milestone 2 underway on feat/shift-state.
+Milestones 0–2 complete. Next: merge feat/shift-state and begin milestone 3.
 The user requested implementation of sequential branches and merges; local merges
 are authorized for this session. No remote push or real service submission planned.
 
@@ -49,3 +49,8 @@ are authorized for this session. No remote push or real service submission plann
 - 2.3: structured status/audit output and credential redaction added. Explicit
   status recovery shares the submission lock. Validation: 41 tests pass, Ruff
   passes. Review found malformed URL validation needs a focused fix before merge.
+
+- 2.3: 57221fd.
+- Focused fix: malformed Mattermost hostnames/ports now produce ConfigError; URL
+  queries/fragments are rejected to avoid credentials in action identity. Validation:
+  44 tests and Ruff pass. Milestone 2 complete.
