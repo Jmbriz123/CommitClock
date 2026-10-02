@@ -18,3 +18,9 @@ are authorized for this session. No remote push or real service submission plann
 - 5.2: verify provider terms/model/free-tier configuration and explicit user consent
   before implementing Gemini transmission.
 - 6.2: actual Mattermost fields, permitted access and confirmation contract required.
+
+## Milestone 1
+
+- 0.2: bb4fe2c; milestone 0 merged locally as b467148.
+- 1.1: Python package, argparse entry point, dev dependencies and ignore rules added.
+  Validation: CLI help and initial pytest smoke test. Next: validated configuration.
