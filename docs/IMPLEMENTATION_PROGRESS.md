@@ -2,7 +2,7 @@
 
 ## Current status
 
-Milestone 0 complete. Next: merge docs/project-specs locally, then milestone 1.
+Milestones 0–1 complete and merged locally. Milestone 2 underway on feat/shift-state.
 The user requested implementation of sequential branches and merges; local merges
 are authorized for this session. No remote push or real service submission planned.
 
@@ -33,3 +33,10 @@ are authorized for this session. No remote push or real service submission plann
   editable install, wheel build and fresh-environment wheel installation passed
   locally on Python 3.12. CI execution on other versions awaits a remote run.
   Milestone 1 complete; next: shift model and state persistence.
+
+## Milestone 2
+
+- 1.3: b028590; milestone 1 merged before this branch.
+- 2.1: dated shifts, ordered actions, UTC identities, midnight anchoring and DST
+  handling implemented. Validation: 17 shift tests plus 17 prior tests pass; Ruff
+  passes. Next: action journal and duplicate guards.
