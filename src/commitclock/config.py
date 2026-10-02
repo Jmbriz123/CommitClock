@@ -140,9 +140,15 @@ def load_config(
     for key in ("max_input_chars", "max_output_tokens", "max_requests_per_shift"):
         if key in values:
             raw = values[key]
-            if isinstance(raw, bool) or not str(raw).isdigit() or int(raw) <= 0:
+            try:
+                if isinstance(raw, bool) or not str(raw).isdigit():
+                    raise ValueError
+                parsed = int(raw)
+            except (TypeError, ValueError):
+                raise ConfigError(f"{key} must be a positive integer") from None
+            if parsed <= 0:
                 raise ConfigError(f"{key} must be a positive integer")
-            values[key] = int(raw)
+            values[key] = parsed
     for key in (
         "timezone",
         "model",

@@ -62,3 +62,11 @@ def test_bad_toml_does_not_echo_secret(tmp_path):
     with pytest.raises(ConfigError) as error:
         load_config(path, environ={})
     assert "secret-value" not in str(error.value)
+
+
+@pytest.mark.parametrize("value", ["²", "9" * 5000], ids=["superscript", "oversized"])
+@pytest.mark.parametrize("key", ["max_input_chars", "max_output_tokens", "max_requests_per_shift"])
+def test_invalid_integer_conversion_produces_safe_config_error(key, value):
+    with pytest.raises(ConfigError) as error:
+        load_config(overrides={key: value}, environ={})
+    assert str(error.value) == f"{key} must be a positive integer"

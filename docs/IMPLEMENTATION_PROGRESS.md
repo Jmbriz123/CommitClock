@@ -54,3 +54,11 @@ are authorized for this session. No remote push or real service submission plann
 - Focused fix: malformed Mattermost hostnames/ports now produce ConfigError; URL
   queries/fragments are rejected to avoid credentials in action identity. Validation:
   44 tests and Ruff pass. Milestone 2 complete.
+
+## Milestone 3
+
+- Milestone 2 fix: 895b52c; merged as 1c4a28e. Existing upstream documentation
+  history retained via 6525289 before creating feat/git-evidence.
+- Focused configuration fix: invalid Unicode/oversized integer values now produce
+  credential-free ConfigError messages. Validation: 25 configuration tests pass.
+  Committed-evidence collector and privacy regression tests are in progress.
