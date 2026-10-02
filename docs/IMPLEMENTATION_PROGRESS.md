@@ -28,3 +28,8 @@ are authorized for this session. No remote push or real service submission plann
 - 1.2: validated configuration and check-config command added; 17 tests pass and
   Ruff passes. Dependency installation succeeded in the isolated .venv after the
   sandbox's network restriction required an approved download. Next: CI/install checks.
+- 1.2: 60fdd15.
+- 1.3: CI matrix for Python 3.11–3.13; lint/format/17 tests, CLI help/check-config,
+  editable install, wheel build and fresh-environment wheel installation passed
+  locally on Python 3.12. CI execution on other versions awaits a remote run.
+  Milestone 1 complete; next: shift model and state persistence.
